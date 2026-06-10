@@ -22,7 +22,7 @@ export default function Home() {
 
   const createNotebook = async () => {
     if (!newNotebookName.trim()) return;
-    const res = await fetch("http://localhost:8000/notebooks/create", {
+    const res = await fetch("https://ai-study-assistant-production-46ea.up.railway.app/notebooks/create", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ name: newNotebookName }),
@@ -38,7 +38,7 @@ export default function Home() {
     setUploading(true);
     const formData = new FormData();
     formData.append("file", file);
-    const res = await fetch(`http://localhost:8000/upload?notebook_id=${activeNotebook}`, {
+    const res = await fetch(`https://ai-study-assistant-production-46ea.up.railway.app/upload?notebook_id=${activeNotebook}`, {
       method: "POST",
       body: formData,
     });
@@ -53,7 +53,7 @@ export default function Home() {
     setMessages(prev => [...prev, userMessage]);
     setQuestion("");
     setLoading(true);
-    const res = await fetch("http://localhost:8000/chat", {
+    const res = await fetch("https://ai-study-assistant-production-46ea.up.railway.app/chat", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ question, notebook_id: activeNotebook }),
@@ -66,7 +66,7 @@ export default function Home() {
   const handleSummary = async () => {
     setSummarizing(true);
     setSummary("");
-    const res = await fetch("http://localhost:8000/summarize", {
+    const res = await fetch("https://ai-study-assistant-production-46ea.up.railway.app/summarize", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ notebook_id: activeNotebook }),
@@ -80,7 +80,7 @@ export default function Home() {
     setQuizzing(true);
     setQuiz([]);
     setSelectedAnswers({});
-    const res = await fetch("http://localhost:8000/quiz", {
+    const res = await fetch("https://ai-study-assistant-production-46ea.up.railway.app/quiz", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ notebook_id: activeNotebook, num_questions: 5 }),
